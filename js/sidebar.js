@@ -9,12 +9,11 @@ $navMenuBtn = $("#nav .menu");
 $navMenu = $("#nav ul li");
 $main = $("#main");
 var list = ["home","skill","document","communion","about"];
+
 //展开侧边栏
 function openSidebar(){
     $nav.animate({width:"200px"},300);
     $content.animate({marginLeft:"200px"},300);
-    //$mask.show().animate({opacity:0.7},300);
-    //$mask.attr("class","mask");
     var add = 0;
     var alphaAdd_jsq = setInterval(function ()
     {
@@ -27,19 +26,7 @@ function openSidebar(){
         height:30
     },300);
     if($nav.width() < 200)
-    {
-        var i = 0;
-        var revolveBlock = setInterval(function ()
-        {
-            i--;
-            if(i < -45)
-            {
-                i = -45;
-                clearInterval(revolveBlock);
-            }
-            $navMenuBtn.css({transform:"rotate("+ i +"deg)"});
-        },300/45)
-    }
+        jua.rotate($navMenuBtn,0,-45,300);
 }
 
 //收起侧边栏
@@ -47,8 +34,6 @@ function closeSidebar(event){
     event.stopPropagation();
     $nav.animate({width:"40px"},300);
     $content.animate({marginLeft:"40px"},300);
-    //$mask.animate({opacity:0},300);
-    //$mask.attr("class","");
     var reduce = 0.3;
     var alphaReduce_jsq = setInterval(function ()
     {
@@ -61,35 +46,15 @@ function closeSidebar(event){
         height:22
     },300);
     if($nav.width() > 40)
-    {
-        var i = -45;
-        var revolveBlock = setInterval(function ()
-        {
-            i++;
-            if(i > 0)
-            {
-                i = 0;
-                clearInterval(revolveBlock);
-            }
-            $navMenuBtn.css({transform:"rotate("+ i +"deg)"});
-        },300/45);
-    }
+        jua.rotate($navMenuBtn,-45,0,300);
 }
 
 //侧边栏点击事件
 $sidebar.on("click",openSidebar);
-$content.on("click",function (event)
-{
-    if($nav.width() > 40){
-        closeSidebar(event);
-    }
-});
-$navMenuBtn.on("click",function (event)
+$content.add($navMenuBtn).on("click",function (event)
 {
     if($nav.width() > 40)
-    {
         closeSidebar(event);
-    }
 });
 
 //导航菜单动画
@@ -99,7 +64,7 @@ $navMenu.on("click",function(event){
     $that.siblings().animate({paddingLeft:0},200);
     $that.animate({paddingLeft:10},200);
     $that.children("a").addClass("active");
-    /*setTimeout(function ()
+    /*setTimeout(function ()//超时自动收起侧边栏
      {
      closeSidebar(event);
      },1000);*/
