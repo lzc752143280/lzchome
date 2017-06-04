@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script src="../myproject/js/jquery.min-1.11.3.js"></script>
+</head>
+<body>
+    <div id="demo"></div>
+    <script>
+        /*$.ajax({
+            type:"get",
+            url:"test.php?username=admin&password=admin",
+            dateType:"text",
+            success:function (txt)
+            {
+                alert(txt);
+            },
+            error:function ()
+            {
+                alert("错误");
+            }
+        })*/
+        /*$.ajax({
+            type:"post",
+            url:"test.php",
+            dateType:"html",
+            success:function (txt)
+            {
+                alert(txt);
+            },
+            error:function ()
+            {
+                alert("错误");
+            }
+        })*/
+        function ajax(option)
+        {
+            option.method = option.method.toUpperCase();
+            option.async = option.async || true;//默认值为true
+            var xhr = null;
+            try
+            {
+                xhr = new XMLHttpRequest();
+            } catch (error)
+            {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.onreadystatechange = function ()
+            {
+                if (xhr.readyState == 4 && xhr.status == 200)
+                {
+                    option.success(xhr.responseText);
+                }
+            }
+            if (option.method == "GET")
+            {
+                xhr.open(option.method, option.url, option.async);
+                xhr.send(null);
+            }
+            else if (option.method == "POST")
+            {
+                var url = option.url;
+                url = url.split("?");
+                xhr.open(option.method, url[0], option.async);
+                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhr.send(url[1]);
+            }else console.log("method参数错误");
+        }
+        var option = {
+            method:"GET",// GET/POST 兼容大小写
+            url:"test.php",// GET/POST 通用写法
+            //async:true//可省略,默认值为true
+            success:function (text)
+            {
+                alert(text);
+            }
+        }
+        ajax(option);
+    </script>
+</body>
+</html>

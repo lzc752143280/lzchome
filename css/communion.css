@@ -1,0 +1,12 @@
+#main .communion {
+}
+.communion .screen1{
+    height: 700px;
+    background: url("../images/4.jpg") no-repeat;
+    background-size: cover;
+}
+.communion .screen2{
+    height: 700px;
+    background: url("../images/5.jpg") no-repeat;
+    background-size: cover;
+}

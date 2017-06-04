@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/jquery.min-1.11.3.js"></script>
+    <style>
+        .skill_info{
+            font-weight: 500;
+            color: #444;
+            font-family: "Microsoft YaHei", "SimSun", "宋体";
+            width: 100px;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            border-radius: 50%;
+            background: #7AC3B1;/*备用颜色:#E03B33 #FCCC38 #0099CC*/
+        }
+        .pie_left, .pie_right {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;left: 0;
+        }
+        .left, .right {
+            display: block;
+            width:100px;
+            height:100px;
+            background:#ddd;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .left{
+            transform: rotate(0deg);
+        }
+        .right{
+            transform: rotate(36deg);
+        }
+        .pie_right, .right {
+            clip:rect(auto,auto,auto,50px);
+        }
+        .pie_left, .left {
+            clip:rect(auto,50px,auto,auto);
+        }
+        .mask {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            left: 5px;
+            top: 5px;
+            background: #FFF;
+            position: absolute;
+            text-align: center;
+            line-height: 90px;
+            font-size: 30px;
+        }
+        .skill_name{
+            text-align: center;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="skill_info">
+    <div class="circle">
+        <div class="pie_left"><div class="left"></div></div>
+        <div class="pie_right"><div class="right"></div></div>
+        <div class="mask"><span>40</span>%</div>
+    </div>
+    <div class="skill_name">HTML</div>
+</div>
+<script>
+    $(function() {
+        $('.circle').each(function(index, el) {
+            var num = $(this).find('span').text() * 3.6;
+            if (num<=180) {
+                $(this).find('.right').css('transform', "rotate(" + num + "deg)");
+            } else {
+                $(this).find('.right').css('transform', "rotate(180deg)");
+                $(this).find('.left').css('transform', "rotate(" + (num - 180) + "deg)");
+            };
+        });
+    });
+</script>
+</body>
+</html>

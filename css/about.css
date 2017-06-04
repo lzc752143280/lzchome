@@ -1,0 +1,12 @@
+#main .about{
+}
+.about .screen1{
+    height: 700px;
+    background: url("../images/5.jpg") no-repeat;
+    background-size: cover;
+}
+.about .screen2{
+    height: 700px;
+    background: url("../images/1.jpg") no-repeat;
+    background-size: cover;
+}

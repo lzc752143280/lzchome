@@ -1,0 +1,93 @@
+#index {
+    display: none;
+    width: 100%;
+    position: inherit;
+    z-index: 2;
+}
+#sidebar{
+    height: 100%;
+    background-color: #212121;
+    position: fixed;;
+}
+#nav{
+    width: 40px;
+    height: 100%;
+    overflow: hidden;
+}
+#nav .logo{
+    width:30px;
+    height:30px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    margin-top: -15px;
+}
+#nav .menu{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -12px;
+    cursor: pointer;
+}
+#nav .menu div{
+    width: 10px;
+    height: 10px;
+    background-color: #FFFFFF;
+    position: absolute;
+}
+#nav .menu div:nth-child(1)
+{
+    top: 0;
+    left: 0;
+}
+#nav .menu div:nth-child(2)
+{
+    top: 0;
+    right: 0;
+}
+#nav .menu div:nth-child(3)
+{
+    bottom: 0;
+    right: 0;
+}
+#nav .menu div:nth-child(4)
+{
+    bottom: 0;
+    left: 0;
+}
+#nav ul{
+    font-size: 20px;
+    width: 100px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    margin-top: -125px;
+    right: 55px;
+}
+#nav ul li a{
+    color: #D6D6D6;
+    display: block;
+    line-height: 50px;
+}
+#nav ul li a:hover{
+    color: #FFFFFF;
+}
+#nav ul li a.active{
+    color: #FFFFFF;
+    font-weight: bold;
+}
+#nav ul li:nth-child(1){
+    padding-left: 10px;
+}
+#content{
+    margin-left: 40px;
+}
+.mask{
+    background-color: rgba(0,0,0,0);
+}
+#main{
+    position: relative;
+    z-index: -1;
+}
