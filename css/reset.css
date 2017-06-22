@@ -4,7 +4,7 @@ html,body,div,dl,dt,dd,ul,ol,li,p,h1,h2,h3,h4,h5,h6,pre,code,form,legend,img,fie
                                                                                                                                           }
 fieldset, img,input,button { border:none; padding:0;margin:0;outline-style:none; }
 ul, ol { list-style:none; }
-input { padding-top:0; padding-bottom:0; font-family: "SimSun","宋体";}
+input { padding-top:0; padding-bottom:0;}
 select, input { vertical-align:middle; }
 select, input, textarea { font-size:12px; margin:0; }
 textarea { resize:none; }

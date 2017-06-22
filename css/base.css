@@ -4,25 +4,29 @@
     position: inherit;
     z-index: 2;
 }
-#sidebar{
+
+#sidebar {
     height: 100%;
     background-color: #212121;
-    position: fixed;;
+    position: fixed;
 }
-#nav{
+
+#nav {
     width: 40px;
     height: 100%;
     overflow: hidden;
 }
-#nav .logo{
-    width:30px;
-    height:30px;
+
+#nav .logo {
+    width: 30px;
+    height: 30px;
     position: absolute;
     top: 50%;
     right: 5px;
     margin-top: -15px;
 }
-#nav .menu{
+
+#nav .menu {
     width: 22px;
     height: 22px;
     position: absolute;
@@ -31,33 +35,35 @@
     margin-left: -12px;
     cursor: pointer;
 }
-#nav .menu div{
+
+#nav .menu div {
     width: 10px;
     height: 10px;
     background-color: #FFFFFF;
     position: absolute;
 }
-#nav .menu div:nth-child(1)
-{
+
+#nav .menu div:nth-child(1) {
     top: 0;
     left: 0;
 }
-#nav .menu div:nth-child(2)
-{
+
+#nav .menu div:nth-child(2) {
     top: 0;
     right: 0;
 }
-#nav .menu div:nth-child(3)
-{
+
+#nav .menu div:nth-child(3) {
     bottom: 0;
     right: 0;
 }
-#nav .menu div:nth-child(4)
-{
+
+#nav .menu div:nth-child(4) {
     bottom: 0;
     left: 0;
 }
-#nav ul{
+
+#nav ul {
     font-size: 20px;
     width: 100px;
     height: 250px;
@@ -66,28 +72,192 @@
     margin-top: -125px;
     right: 55px;
 }
-#nav ul li a{
+
+#nav ul li a {
     color: #D6D6D6;
     display: block;
     line-height: 50px;
 }
-#nav ul li a:hover{
+
+#nav ul li a:hover {
     color: #FFFFFF;
 }
-#nav ul li a.active{
+
+#nav ul li a.active {
     color: #FFFFFF;
-    font-weight: bold;
+    font-weight: 600;
 }
-#nav ul li:nth-child(1){
+
+#nav ul li:nth-child(1) {
     padding-left: 10px;
 }
-#content{
+
+.weather{
+    max-width: 155px;
+    min-width: 120px;
+    height: 70px;
+    position: absolute;
+    bottom: 65px;
+    right: 45px;
+    color: #e6e6e6;
+}
+
+.weather_top{
+    height: 40px;
+}
+
+.weather .tmp{
+    width: 50px;
+    font-size: 35px;
+    padding-left: 5px;
+    float: left;
+}
+
+.weather .cond{
+    width: 45px;
+    float: left;
+}
+
+.weather .cond span{
+    display: block;
+    padding-top: 14px;
+    padding-left: 7px;
+    font-size: 16px;
+}
+
+.weather_bottom{
+    height: 30px;
+    font-size: 16px;
+    margin-top: 3px;
+    line-height: 30px;
+}
+
+.weather_bottom .city{
+    float: left;
+    padding-left: 3px;
+}
+
+.weather_bottom .wind{
+float: left;
+padding: 0 5px;
+}
+
+.weather_bottom .aqi{
+float: left;
+}
+
+.weather_bottom .aqi::before{
+    content: "|";
+}
+
+.weather_bottom .aqi span{
+    padding-left: 5px;
+}
+
+.status{
+    width: 110px;
+    color: #D6D6D6;
+    position: absolute;
+    bottom: 20px;
+    right: 55px;
+}
+
+#content {
     margin-left: 40px;
 }
-.mask{
-    background-color: rgba(0,0,0,0);
+
+.mask {
+    background-color: rgba(0, 0, 0, 0);
 }
-#main{
+
+#main {
     position: relative;
     z-index: -1;
+}
+
+.content_loading_animation {
+    width: 30px;
+    height: 30px;
+    background-color: #e6e6e6;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+    display: none;
+    border: 8px solid #e6e6e6;
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px #555;
+}
+
+.lattice_circle ul {
+    list-style: none;
+    font-size: 20px;
+    text-align: center;
+}
+
+.lattice_circle {
+    width: 30px;
+    height: 30px;
+    animation: rotate 3s linear infinite;
+    -webkit-animation: rotate 3s linear infinite;
+    -moz-animation: rotate 3s linear infinite;
+    -o-animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes rotate {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+
+.lattice_circle ul li {
+    color: #555;
+    line-height: 20px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#canvas {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
 }
