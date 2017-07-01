@@ -18,14 +18,7 @@ function openSidebar() {
     $content.animate({
         marginLeft: "200px"
     }, 300);
-    var add = 0;
-    var alphaAdd_jsq = setInterval(function () {
-        add += 0.1;
-        $mask.css({
-            backgroundColor: "rgba(0,0,0," + add + ")"
-        });
-        add >= 0.3 ? clearInterval(alphaAdd_jsq) : add;
-    }, 50);
+    $mask.fadeIn(300);
     $navMenuBtn.animate({
         width: 30,
         height: 30
@@ -43,14 +36,7 @@ function closeSidebar(event) {
     $content.animate({
         marginLeft: "40px"
     }, 300);
-    var reduce = 0.3;
-    var alphaReduce_jsq = setInterval(function () {
-        reduce -= 0.1;
-        $mask.css({
-            backgroundColor: "rgba(0,0,0," + reduce + ")"
-        });
-        reduce < 0 ? clearInterval(alphaReduce_jsq) : reduce;
-    }, 50);
+    $mask.fadeOut(300);
     $navMenuBtn.animate({
         width: 22,
         height: 22
@@ -83,9 +69,9 @@ $navMenu.on("click", function (event) {
     var $that = $(this);
     changeNavMenu($that);
     //捕获点击事件
-    $(document).on('click',function(){
-        return false;
-    });
+    // $navMenu.on('click',function(){
+    //     return false;
+    // });
 });
 
 //导航菜单跟随前进后退事件变化
@@ -105,9 +91,12 @@ if (onhash) {
         type: "get",
         url: onhash,
         dateType: "html",
-        success: function (txt) {
-            $main.html(txt).hide().fadeIn(1000);
+        success: function (html) {
+            $main.html(html).hide().fadeIn(1000);
             $(window).trigger("popstate");
+            var id = onhash.replace(/(\w)\/.*/,"$1");
+            //$('<link rel="stylesheet" href="./'+id+'/'+ id +'.css">').appendTo($("head"));//动态添加CSS
+            $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("head"));//动态添加js
         },
         error: function () {
             console.log("url链接错误");
@@ -128,9 +117,9 @@ $.pjax({
     callback: function (status) {
         var type = status.type;
         switch (type) {
-            case 'success':
-                ;
-                //$('<link rel="stylesheet" href="css/'+ $(this).data("url") +'.css">').appendTo($("head"));//动态添加CSS
+            case 'success':var id = $(this).attr("id");
+                //$('<link rel="stylesheet" href="./'+id+'/'+ id +'.css">').appendTo($("head"));//动态添加CSS
+                $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("head"));//动态添加js
                 break; //正常
             case 'cache':
                 ;
@@ -145,14 +134,15 @@ $.pjax({
     }
 });
 
+//loading动画
 $main.on('pjax.start', function () {
     $(".content_loading_animation").show();
 }).on('pjax.end', function () {
     $(".content_loading_animation").hide();
     closeSidebar(event);
     ////解除捕获点击事件
-    $(document).off('click',function(){
-    });
+    // $navMenu.off('click',function(){
+    // });
 });
 
 (function () {

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>抢红包</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    #stop{
+        position: absolute;
+        top:30px;
+        left:30px;
+        display:none;
+    }
+    #djs{
+        position: absolute;
+        top:33px;
+        left: 100px;
+        color: #F3950E;
+        font-size: 20px;
+        font-weight: bolder;
+        display: none;
+        border: 3px solid #F3950E;
+        padding: 5px;
+        border-radius: 15px;
+        background: #F8EDC2;
+    }
+</style>
+<script>
+    var x = screen.availWidth;
+    var y = screen.availHeight;
+    var count = 0;
+    var time = 0;
+    var pausetime = 0;
+    var jsq;
+    var dsq;
+    var cishu = 0;
+    function jishiqi(that) {
+        jsq = window.setInterval("malloc()",500);
+        that.style.display = "none";
+        document.getElementById("stop").style.display = "block";
+        document.getElementById("djs").style.display = "block";
+    }
+    function malloc() {
+        window.clearInterval(dsq);
+        cishu++;
+        if(cishu%2==0)
+            time++;
+        if((time-pausetime)>=60)
+            stop();
+        var sj = document.getElementById("djs");
+        sj.innerText = "倒计时:"+(60-time-pausetime)+"秒";
+        var obj = document.createElement("img");
+        obj.src = "tu/hb.png";
+        var w = Math.random()*100+40;
+        obj.style.width = w+"px";
+        obj.style.position = "absolute";
+        obj.style.top = (Math.random()*(y-300)+50)+"px";
+        obj.style.left = (Math.random()*(x-300)+80)+"px";
+        obj.onclick = remove;
+        document.getElementById("bj").appendChild(obj);
+    }
+    function remove() {
+        this.parentNode.removeChild(this);
+        count++;
+    }
+    function pause() {
+        alert("游戏已暂停\n点击\"确认\"键继续游戏");
+        dsq = window.setInterval("pausetime++",1000);
+    }
+    function stop() {
+        document.getElementById("stop").style.display = "none";
+        document.getElementById("djs").style.display = "none";
+        alert("Game over !\n\n共抢到"+count+"个红包");
+        window.clearInterval(jsq);
+        location.reload();
+    }
+</script>
+<body ondragstart="return false;">
+    <div id = "bj" style="position:absolute; width:100%; height:100%; z-index:-1">
+        <img src="tu/bj.jpg" height="100%" width="100%"/>
+        <div align="center" id = "start" onclick="jishiqi(this)">
+            <img src="tu/start.png" style="position:relative;top:-300px;width:400px">
+        </div>
+        <div id = "stop" onclick="pause()">
+            <img src="tu/stop.png" width = "50";>
+        </div>
+        <div id = "djs">倒计时:60秒</div>
+    </div>
+</body>
+</html>

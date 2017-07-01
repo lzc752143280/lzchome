@@ -1,0 +1,135 @@
+html, body, div, dl, dt, dd, ul, ol, li, p, h1, h2, h3, h4, h5, h6, pre, code, form, legend, img, fieldset, input, textarea, blockquote, th, td, hr, button, article, aside, figcaption, figure, footer, header, menu, nav, section {
+    margin: 0;
+    padding: 0;
+}
+fieldset, img, input, button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;
+}
+ul, ol {
+    list-style: none;
+}
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "SimSun", "宋体";
+}
+select, input {
+    vertical-align: middle;
+}
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+textarea {
+    resize: none;
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+table {
+    border-collapse: collapse;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+a {
+    text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+    font-weight: normal;
+}
+s, i, em {
+    font-style: normal;
+    text-decoration: none;
+}
+/*公共类*/
+.fl {
+    float: left
+}
+.fr {
+    float: right
+}
+.al {
+    text-align: left
+}
+.ac {
+    text-align: center
+}
+.ar {
+    text-align: right
+}
+.hide {
+    display: none
+}
+.show {
+    display: block;
+}
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+/*初始化结束*/
+.box{
+    position: relative;
+}
+.banner{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.banner img{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    display: none;
+}
+.banner .prev,.banner .next{
+    width: 46px;
+    height: 46px;
+    position: absolute;
+    top: 45%;
+    opacity: .6;
+    filter: alpha(opacity=60);
+    display: none;
+    cursor: pointer;
+}
+.banner .prev{
+    left: 10px;
+    background: url("images/web_icon_left_dis.png") no-repeat;
+}
+.banner .next{
+    right: 10px;
+    background: url("images/web_icon_right_dis.png") no-repeat;
+}
+.ctrl{
+    width: 170px;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -85px;
+}
+.ctrl li{
+    float: left;
+    width: 24px;
+    height: 20px;
+    margin: 5px;
+    background: url("images/icon.png") no-repeat -24px -15px;
+    text-indent: -1999px;
+    cursor: pointer;
+}
+.ctrl .current{
+    background-position: 0 5px;
+}

@@ -1,12 +1,370 @@
-#main .skill{
+#main .skill {
+    background-color: #faf8ef;
+    box-shadow: 1px 0px 10px #333 inset;
 }
-.skill .screen1{
-    height: 700px;
-    background: url("../images/2.jpg") no-repeat;
-    background-size: cover;
+
+.skill .skill_container {
+    width: 983px;
+    margin: auto;
+    padding-top: 30px;
+    padding-left: 200px;
+    padding-right: 200px;
 }
-.skill .screen2{
-    height: 700px;
-    background: url("../images/3.jpg") no-repeat;
-    background-size: cover;
+
+.skill_info {
+    font-weight: 500;
+    color: #444;
+    width: 200px;
+    margin: 30px 63px;
+    float: left;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.skill_info .circle {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border-radius: 50%;
+    background: #0099CC;
+    /*备用颜色:#0099CC #7AC3B1 #FCCC38 #E03B33*/
+}
+
+.skill_info .pie_left,
+.skill_info .pie_right {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.skill_info .left,
+.skill_info .right {
+    display: block;
+    width: 200px;
+    height: 200px;
+    background: #ddd;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.skill_info .left {
+    transform: rotate(0deg);
+}
+
+.skill_info .right {
+    transform: rotate(36deg);
+}
+
+.skill_info .pie_right,
+.skill_info .right {
+    clip: rect(auto, auto, auto, 100px);
+}
+
+.skill_info .pie_left,
+.skill_info .left {
+    clip: rect(auto, 100px, auto, auto);
+}
+
+.skill_info .mask {
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    left: 5px;
+    top: 5px;
+    background: #faf8ef;
+    position: absolute;
+}
+
+.skill_info .mask .percent {
+    text-align: center;
+    line-height: 190px;
+    font-size: 50px;
+}
+
+.skill_info .mask .detail {
+    display: none;
+    padding: 32px;
+    width: 126px;
+    height: 126px;
+    overflow: hidden;
+    line-height: 20px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.turn_over {
+    animation: turn_over 1.5s forwards;
+}
+
+.turn_back {
+    animation: turn_back 1.5s forwards;
+}
+
+@keyframes turn_over {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes turn_back {
+    from {
+        transform: rotateY(360deg);
+    }
+    to {
+        transform: rotateY(0deg);
+    }
+}
+
+.skill_info .skill_name {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .skill .skill_container {
+        width: 260px;
+        margin: auto;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .skill_container::before {
+        content: "使用PC访问可查看详细信息";
+        display: block;
+        text-align: center;
+        padding-top: 20px;
+        font-size: 18px;
+    }
+    .skill_info {
+        width: 100px;
+        margin: 15px;
+    }
+    .skill_info .circle,
+    .skill_info .pie_left,
+    .skill_info .pie_right,
+    .skill_info .left,
+    .skill_info .right {
+        width: 100px;
+        height: 100px;
+    }
+    .skill_info .pie_right,
+    .skill_info .right {
+        clip: rect(auto, auto, auto, 50px);
+    }
+    .skill_info .pie_left,
+    .skill_info .left {
+        clip: rect(auto, 50px, auto, auto);
+    }
+    .skill_info .mask {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        left: 5px;
+        top: 5px;
+        background: #faf8ef;
+        position: absolute;
+    }
+    .skill_info .mask .percent {
+        text-align: center;
+        line-height: 90px;
+        font-size: 30px;
+    }
+    .skill_info .skill_name {
+        text-align: center;
+        padding-top: 10px;
+        font-size: 20px;
+    }
+}
+
+.skill .demo_container {
+    width: 983px;
+    margin: auto;
+    padding-top: 30px;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.skill .demo_container h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.skill .demo_container .demo {
+    float: left;
+    margin-bottom: 20px;
+    width: 480px;
+    height: 320px;
+    margin-top: 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(50, 50, 50, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.skill .demo_container .demo:nth-child(2n+1) {
+    margin-right: 23px;
+}
+
+.demo_info {
+    color: #faf8ef;
+    width: 480px;
+    height: 320px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    text-align: center;
+    opacity: 0;
+}
+
+.demo_info h3 {
+    margin-top: 30px;
+    font-size: 36px;
+}
+
+.demo_info p {
+    text-align: left;
+    text-indent: 2em;
+    font-size: 18px;
+    padding: 20px;
+}
+
+.look_botton {
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    margin-left: -50px;
+}
+
+.look_botton a {
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    position: relative;
+    /*下面可以自定义盒子和颜色*/
+    width: 100px;
+    height: 40px;
+    border: 2px solid #fff;
+    /*hover后的颜色*/
+    border-radius: 5px;
+    color: #fff;
+}
+
+.look_botton a:before {
+    content: "点击查看";
+    /*自定义内容*/
+}
+
+.look_botton a:hover {
+    color: #fff;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.look_botton a:hover .spread {
+    border-color: #fff;
+    animation: spread 0.5s forwards;
+}
+
+@keyframes spread {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+.look_botton .spread {
+    font-style: normal;
+    display: block;
+    width: 100px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+}
+
+.demo:hover .demo_info {
+    animation: show_info 0.5s forwards;
+}
+
+@keyframes show_info {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.demo_mask {
+    width: 480px;
+    height: 320px;
+    background-color: #000;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0;
+}
+
+.demo:hover .demo_mask {
+    animation: show_mask 0.5s forwards;
+}
+
+@keyframes show_mask {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.7;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .skill .demo_container .demo img {
+        width: 240px;
+    }
+    .skill .demo_container {
+        width: 260px;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .skill .demo_container h1 {
+        font-size: 30px;
+    }
+    .skill .demo_container .demo {
+        width: 240px;
+        height: 160px;
+    }
+    .skill .demo_container .demo:nth-child(2n+1) {
+        margin-right: 0;
+    }
+    .demo_info {
+        width: 240px;
+        height: 160px;
+    }
+    .demo:hover .demo_info {
+    animation: none;
+}
+.demo:hover .demo_mask {
+    animation: none;
+}
 }

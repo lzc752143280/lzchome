@@ -1,12 +1,74 @@
-#main .document {
+#main .document{
+    background-color: #faf8ef;
+    box-shadow: 1px 0px 10px #333 inset;
 }
-.document .screen1{
-    height: 700px;
-    background: url("../images/3.jpg") no-repeat;
-    background-size: cover;
+
+.document .document_container{
+    width: 983px;
+    margin: auto;
+    background-color: #faf8ef;
+    box-shadow: 0 2px 6px rgba(50, 50, 50, 0.3);
+    position: relative;
+    z-index: 2;
+    color: #3a2b0e;
 }
-.document .screen2{
-    height: 700px;
-    background: url("../images/4.jpg") no-repeat;
-    background-size: cover;
+
+.document .document_container h1{
+    margin: auto;
+    width: 360px;
+    font-size: 36px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.document .document_container p{
+    margin: 20px 50px;
+    line-height: 30px;
+    font-size: 20px;
+    text-indent: 2em;
+}
+
+.document_container p a,.document_container p a:link{
+    color: #333;
+    font-weight: bold;
+}
+
+.document .document_container img{
+    display: block;
+    margin: auto;
+}
+
+.document_end{
+    font-size: 30px;
+    width: 342px;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: #3a2b0e
+}
+
+@media screen and (max-width: 768px){
+
+.document .document_container{
+    width: 300px;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.document .document_container h1{
+    width: 260px;
+    font-size: 26px;
+}
+
+.document .document_container p{
+    margin: 20px 20px;
+}
+
+.document_end{
+    font-size: 26px;
+    width: 280px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
 }

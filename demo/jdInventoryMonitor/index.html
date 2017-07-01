@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>京东库存监控</title>
+    <script src="../../lib/jquery.min-1.11.3.js"></script>
+    <style>
+        .clearfix:before,
+        .clearfix:after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+            /*IE/7/6*/
+        }
+
+        body {
+            background-color: #e6e6e6;
+            color: #333;
+            font-family: SimSun;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .demo {
+            width: 460px;
+            margin: 50px auto 0 auto;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid #d6d6d6;
+        }
+
+        #option {
+            width: 100px;
+            height: 172px;
+            float: left;
+        }
+
+        .ctrl {
+            float: right;
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            width: 440px;
+            min-height: 100px;
+            border: 1px solid #e6e6e6;
+        }
+
+        table {
+            border: 1px dotted #e6e6e6;
+            text-align: center;
+        }
+
+        tr {
+            height: 30px;
+        }
+
+        td {
+            border: 1px dotted #e6e6e6;
+            max-width: 148px;
+            /*要显示文字的宽度*/
+            overflow: hidden;
+            /*超出的部分隐藏起来。*/
+            white-space: nowrap;
+            /*不显示的地方用省略号...代替*/
+            text-overflow: ellipsis;
+            /* 支持 IE */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo">
+        <div class="params clearfix">
+            <select id="option" multiple>
+            </select>
+            <div class="ctrl">
+                <div>
+                    商品链接(ID): <input type="text" id="id" style="width:100px">
+                    <button id="query">查询</button>
+                    <button id="add">添加</button>
+                </div>
+                <br>
+                <div>
+                    监控间隔(秒): <input type="text" id="interval" style="width:100px">
+                    <button id="startMonitor">监控</button>
+                    <button id="stopMonitor">停止</button>
+                </div>
+                <br>
+                <div>
+                    <button id="del">删除选中ID</button>
+                    <button id="delAll">全部删除</button>
+                    <button id="delLog">清除监控日志</button>
+                </div>
+            </div>
+        </div>
+        <div class="status">
+            <table id="tb1" width="440" border="1" cellpadding="4" cellspacing="0">
+                <tr>
+                    <td>商品链接</td>
+                    <td>ID</td>
+                    <td>时间</td>
+                    <td>状态</td>
+                    <td>库存量</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        Notification.requestPermission();
+        //ajax请求
+        function getInventory(id, that) {
+            var _that = that;
+            $.ajax({
+                url: "http://wq.jd.com/item/view2?datatype=1&sku=" + id + "&areaid=17_1381_1386_0&u_source=weixin&_=" + new Date().getTime(),
+                type: "post",
+                dataType: "jsonp",
+                success: function (data) {
+                    showMonitorResult(data);
+                }
+            });
+        };
+        //查询(监控)结果处理函数
+        function showMonitorResult(data) {
+            //data.stock.StockState 现货33 无货34 可配货40
+            var id = data.skuId;
+            var url = 'https://item.jd.com/' + id + '.html';
+            var num;
+            var name = data.skuName;
+            console.log(data.stock.StockState);
+            data.stock.rn < 1 || data.stock.rn > 5 ? num = "" : num = data.stock.rn + "件";
+            $("#" + id + ",#" + id + " td a").css("color", "#333");
+            $(".status #" + id).html('<td><a href="' + url + '" title="' + name + '" target="_blank">' + name + '</a></td>' +
+                '<td>' + id + '</td>' +
+                '<td>' + new Date().toLocaleTimeString() + '</td>' +
+                '<td>' + data.stock.StockStateName + '</td>' +
+                '<td>' + num + '</td>');
+            if (data.stock.StockState != 34) {
+                $("#" + id + ",#" + id + " td a").css("color", "#f10215");
+                var audio = document.createElement("audio");
+                audio.src = "http://zjdx1.sc.chinaz.com/Files/DownLoad/sound1/201206/1583.mp3";
+                audio.play();
+                    console.log(Notification.permission);
+                if (Notification.permission == "granted") {
+                    var notification = new Notification("紧急通知：", {
+                        body: name + '\n商品状态: '+ data.stock.StockStateName
+                    });
+                }
+                for (var key in ids) {
+                    if (ids[key] === id) {
+                        clearInterval(jsq[key]);
+                    };
+                };
+            };
+        };
+        //从链接获取商品ID
+        function getID(url) {
+            var regex = /[a-z,A-z]+:\/\/item\.jd\.com\/(\d+)\.html.*/;
+            var id = url.replace(regex, "$1");
+            return id;
+        };
+        //清除监控日志
+        function clearLog() {
+            $(".status table").html('<tr>' +
+                '<td>商品链接</td>' +
+                '<td>ID</td>' +
+                '<td>时间</td>' +
+                '<td>状态</td>' +
+                '<td>库存量</td>' +
+                '</tr>');
+        };
+        //查询
+        $("#query").on('click', function () {
+            clearLog();
+            var id = getID($("#id").val());
+            $(".status table").append('<tr id="' + id + '"></tr>');
+            getInventory(id, this);
+        });
+        //添加
+        $("#add").on('click', function () {
+            var id = getID($("#id").val());
+            var val = $("#option option:last-child").val() || -1;
+            $("#option").append('<option value="' + (parseInt(val) + 1) + '">' + id + '</option>');
+            $("#id").val("");
+            $("#id").focus();
+        });
+        //删除选中ID
+        $("#del").on('click', function () {
+            $("#option option:selected").remove();
+        });
+        //全部删除
+        $("#delAll").on('click', function () {
+            $("#option").html("");
+            $("#id").val("");
+            $("#interval").val("");
+        });
+        //清除监控日志
+        $("#delLog").on('click', function () {
+            clearLog();
+        });
+        //开始监控
+        var jsq = [];
+        var ids = [];
+        $("#startMonitor").on("click", function () {
+            var that = this;
+            var interval = ($("#interval").val()) * 1000;
+            var options = $("#option").children();
+            if (options.length <= 0) {
+                $(".status table").html("未成功添加商品");
+                $("#id").focus();
+            } else if (interval <= 0) {
+                $(".status table").html("监控间隔未设置");
+                $("#interval").focus();
+            } else {
+                $("#startMonitor").attr("disabled", true);
+                clearLog();
+                options.each(function (i) {
+                    ids[i] = $(this).text();
+                    $(".status table").append('<tr id="' + ids[i] + '"></tr>');
+                    getInventory(ids[i], that);
+                    jsq[i] = setInterval(function () {
+                        getInventory(ids[i], that);
+                    }, interval);
+                });
+            }
+        });
+        //停止监控
+        $("#stopMonitor").on("click", function () {
+            for (var index = 0; index < jsq.length; index++) {
+                clearInterval(jsq[index]);
+            };
+            $("#startMonitor").attr("disabled", false);
+        });
+    </script>
+</body>
+
+</html>

@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=decive-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="edge">
-    <!--要改-->
     <title>loading</title>
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="home/home.css">
-    <link rel="stylesheet" href="skill/skill.css">
-    <link rel="stylesheet" href="document/document.css">
-    <link rel="stylesheet" href="communion/communion.css">
-    <link rel="stylesheet" href="about/about.css">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./home/home.css">
+    <link rel="stylesheet" href="./skill/skill.css">
+    <link rel="stylesheet" href="./document/document.css">
+    <link rel="stylesheet" href="./communion/communion.css">
+    <link rel="stylesheet" href="./about/about.css">
     <script src="lib/resLoader.js"></script>
     <script src="lib/jquery.min-1.11.3.js"></script>
     <script src="lib/jquery.pjax.js"></script>
@@ -127,6 +126,7 @@
             padding: 95px 67px 67px 67px;
             font-size: 20px;
             font-weight: bold;
+            text-align: left;
         }
 
         #loadingtip .note1 {
@@ -248,7 +248,7 @@
             top: 100px;
             right: 20px;
             cursor: pointer;
-            z-index: 5;
+            z-index: 999;
             display: none;
         }
 
@@ -292,7 +292,7 @@
             opacity: 0;
             filter: alpha(opacity=0);
             border-radius: 42px;
-            z-index: 3;
+            z-index: 1;
         }
 
         .music_mask:hover {
@@ -366,11 +366,11 @@
                 </div>
                 <img src="images/logo.png" class="logo">
                 <ul>
-                    <li><a href="home/index.html" data-pjax="" class="active">首页</a></li>
-                    <li><a href="skill/index.html" data-pjax="">雕虫小技</a></li>
-                    <li><a href="document/index.html" data-pjax="">IE那些事</a></li>
-                    <li><a href="communion/index.html" data-pjax="">吐槽本站</a></li>
-                    <li><a href="about/index.html" data-pjax="">个人资料</a></li>
+                    <li><a id="home" href="home/index.html" data-pjax="" class="active">首页</a></li>
+                    <li><a id="skill" href="skill/index.html" data-pjax="">雕虫小技</a></li>
+                    <li><a id="document" href="document/index.html" data-pjax="">建站记录</a></li>
+                    <li><a id="communion" href="communion/index.html" data-pjax="">吐槽本站</a></li>
+                    <li><a id="about" href="about/index.html" data-pjax="">个人资料</a></li>
                 </ul>
                 <div class="weather">
                     <div class="weather_top">
@@ -383,37 +383,35 @@
                         <div class="aqi"><span>良</span></div>
                     </div>
                 </div>
-                <div class="status"><span>Now: 找工作中</span></div>
+                <div class="status"><span>Now：</span></div>
             </div>
         </div>
         <div id="content">
-            <div class="mask">
-                <div id="main">
-                    <div class="home">
-                        <div class="screen1"></div>
-                        <div class="screen2"></div>
-                    </div>
+            <div class="mask"></div>
+            <div id="main">
+                <div class="home">
+                    <div class="screen1"></div>
+                    <div class="screen2"></div>
                 </div>
-                <div class="content_loading_animation">
-                    <div class="lattice_circle">
-                        <ul>
-                            <!--<li>•</li>-->
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                            <li>·</li>
-                        </ul>
-                    </div>
-                    <canvas id="canvas" width="50" height="50"></canvas>
+            </div>
+            <div class="content_loading_animation">
+                <div class="lattice_circle">
+                    <ul>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                        <li>·</li>
+                    </ul>
                 </div>
+                <canvas id="canvas" width="50" height="50"></canvas>
             </div>
         </div>
     </div>
@@ -455,10 +453,7 @@
                 }, 30)
             }
         }
-        //自适应
-        window.onresize = function () {
-            SelfAdaption(loadingCentent); //loading_centent盒子缩放
-        }
+
         SelfAdaption(loadingCentent); //页面载入时缩放一次
 
         //音乐播放
@@ -468,7 +463,7 @@
         var magnet_head = document.getElementById("magnet_head");
         var vinyl_angle = 360;
         var vinyl_jsq;
-        if (document.body.offsetWidth < 500) //如果bodyWidth < 500 不播放音乐
+        if (document.body.offsetWidth < 768) //如果bodyWidth < 768 不播放音乐
         {
             prestrain();
         } else {
@@ -537,6 +532,7 @@
                         var loading_centent = document.getElementById("loading_centent");
                         index.style.display = "block"; //显示主页
                         var h = loading.offsetHeight;
+                        loading.removeChild(loading_centent);
 
                         function animate() {
                             var loadingH = loading.offsetHeight;
@@ -554,7 +550,11 @@
 
                         var jsq_animate = setInterval(animate, 20);
                         document.title = 'iHome';
-                    }, 100);
+                        if (document.body.offsetWidth >= 768)
+                            $("body").append($(
+                                '<script type="text/javascript" color="78,29,76" opacity="0.7" zIndex="1" src="./lib/canvas-nest.min.js"><\/script>'
+                            ));
+                    }, 1000);
                 }
             })
             loader.start();
@@ -691,6 +691,7 @@
             }());
     </script>
     <script src="js/sidebar.js"></script>
+    <!--<script type="text/javascript" color="78,29,76" opacity="0.7" zIndex="1" src="./lib/canvas-nest.min.js"></script>-->
 </body>
 
 </html>

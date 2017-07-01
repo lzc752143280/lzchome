@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=540, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2048</title>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="./block.css">
+    <script src="../../lib/jquery.min-1.11.3.js"></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+        }
+
+        .game_container {
+            width: 500px;
+            margin: auto;
+            background-color: #faf8ef;
+            padding: 20px;
+            color: #776e65;
+        }
+
+        .game_title {
+            font-size: 40px;
+            float: left;
+            height: 92px;
+        }
+
+        .game_scores {
+            float: right;
+            padding-top: 10px;
+            text-align: center;
+            color: #faf8ef;
+        }
+
+        .game_scores .score,
+        .game_scores .best {
+            float: left;
+            width: 80px;
+            height: 60px;
+            background-color: #bbada0;
+            border-radius: 3px;
+        }
+
+        .game_scores .score {
+            margin-right: 5px;
+        }
+
+        .game_scores .score_title {
+            height: 25px;
+            line-height: 32px;
+            font-size: 18px;
+        }
+
+        .game_scores .score_num {
+            height: 30px;
+            line-height: 34px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .game_intro {
+            float: left;
+            font-size: 20px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #start_game {
+            float: right;
+            width: 88px;
+            height: 40px;
+            background-color: #8f7a66;
+            color: #f9f6f2;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 3px;
+            padding: 0 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chessboard {
+            width: 485px;
+            height: 485px;
+            background-color: #bbada0;
+            border-radius: 6px;
+            padding: 15px 0 0 15px;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .chessboard .mask {
+            width: 500px;
+            height: 500px;
+            background-color: rgba(238, 228, 218, 0.73);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: none;
+        }
+
+        .chessboard .game_over {
+            text-align: center;
+            color: #776e65;
+            margin-top: 100px;
+        }
+
+        .chessboard .goTop{
+            animation: goTop 1s;
+        }
+
+        @keyframes goTop{
+            from{
+                margin-top: 300px;
+                opacity: 0;
+            }to{
+                margin-top: 100px;
+                opacity: 1;
+            }
+        }
+
+        .chessboard .tip {
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .chessboard #restart {
+            background: #8f7a66;
+            border-radius: 3px;
+            padding: 0 20px;
+            color: #f9f6f2;
+            width: 100px;
+            height: 40px;
+            line-height: 42px;
+            cursor: pointer;
+            margin: 30px auto;
+        }
+
+        .chessboard p{
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 50px;
+        }
+
+        .chessboard .col {
+            width: 106.25px;
+            height: 106.25px;
+            background-color: rgba(238, 228, 218, 0.35);
+            float: left;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+        }
+
+        .rules {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        .rules div span {
+            font-weight: bold;
+        }
+
+        .copyright {
+            margin-top: 30px;
+        }
+
+        .copyright a {
+            color: #776e65;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="2048">
+        <div class="game_container">
+            <div class="clearfix">
+                <div class="game_title">
+                    <h1>2048</h1>
+                </div>
+                <div class="game_scores">
+                    <div class="score">
+                        <div class="score_title"><span>当前</span></div>
+                        <div class="score_num"><span>0</span></div>
+                    </div>
+                    <div class="best">
+                        <div class="score_title"><span>最佳</span></div>
+                        <div class="score_num"><span>0</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="game_intro">合并数字方块，达到2048！</div>
+                <div id="start_game">新游戏</div>
+            </div>
+            <div class="chessboard clearfix">
+                <div class="mask">
+                    <div class="game_over">
+                        <div class="tip">Game over！</div>
+                        <div id="restart">再来一次</div>
+                        <p>Don't cry！</p>
+                        <p>原作者说他也没玩到过2048</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="block_container" id="block_container">
+                    <div id="block_0_0"></div>
+                    <div id="block_0_1"></div>
+                    <div id="block_0_2"></div>
+                    <div id="block_0_3"></div>
+                    <div id="block_1_0"></div>
+                    <div id="block_1_1"></div>
+                    <div id="block_1_2"></div>
+                    <div id="block_1_3"></div>
+                    <div id="block_2_0"></div>
+                    <div id="block_2_1"></div>
+                    <div id="block_2_2"></div>
+                    <div id="block_2_3"></div>
+                    <div id="block_3_0"></div>
+                    <div id="block_3_1"></div>
+                    <div id="block_3_2"></div>
+                    <div id="block_3_3"></div>
+                </div>
+            </div>
+            <div class="rules">
+                <div>当两个数字相同的方块接触时，它们将<span>合并成一个！</span></div>
+                <div><span>键盘：</span>使用<span>箭头键（←↑↓→）</span>移动方块。</div>
+                <div><span>触屏：</span>在方块上<span>滑动</span>使方块移动。建议<span>关闭</span>浏览器的<span>手势操作功能</span>获得最佳体验。</span>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">页面布局和样式来自<a href="http://gabrielecirulli.com/" target="_blank">Gabriele Cirulli</a>，此山寨版仅为学习所用。</p>
+        </div>
+    </div>
+    <script src="./2048.js"></script>
+</body>
+
+</html>
