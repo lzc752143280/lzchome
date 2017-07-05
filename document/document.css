@@ -1,12 +1,12 @@
 #main .document{
-    background-color: #faf8ef;
+    background-color: #bdc7c3;
     box-shadow: 1px 0px 10px #333 inset;
 }
 
 .document .document_container{
     width: 983px;
     margin: auto;
-    background-color: #faf8ef;
+    background: url("../images/wenli.png") #faf8ef;
     box-shadow: 0 2px 6px rgba(50, 50, 50, 0.3);
     position: relative;
     z-index: 2;
@@ -49,25 +49,26 @@
 }
 
 @media screen and (max-width: 768px){
-
 .document .document_container{
-    width: 300px;
+    width: auto;
     box-shadow: none;
-    background-color: transparent;
 }
 
 .document .document_container h1{
+    text-align: center;
     width: 260px;
-    font-size: 26px;
 }
 
 .document .document_container p{
-    margin: 20px 20px;
+    margin: auto;
+    width: 260px;
+    font-size: 16px;
 }
 
 .document_end{
-    font-size: 26px;
-    width: 280px;
+    text-align: center;
+    font-size: 16px;
+    width: 260px;
     padding-top: 30px;
     padding-bottom: 30px;
 }

@@ -353,6 +353,7 @@
     .skill .demo_container .demo {
         width: 240px;
         height: 160px;
+        margin-left: 10px;
     }
     .skill .demo_container .demo:nth-child(2n+1) {
         margin-right: 0;
