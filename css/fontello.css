@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'fa-thumbs-o-up';
-  src: url('../font/fa-thumbs-o-up.eot?84470300');
-  src: url('../font/fa-thumbs-o-up.eot?84470300#iefix') format('embedded-opentype'),
-       url('../font/fa-thumbs-o-up.woff2?84470300') format('woff2'),
-       url('../font/fa-thumbs-o-up.woff?84470300') format('woff'),
-       url('../font/fa-thumbs-o-up.ttf?84470300') format('truetype'),
-       url('../font/fa-thumbs-o-up.svg?84470300#fa-thumbs-o-up') format('svg');
+  font-family: 'fontello';
+  src: url('../font/fontello.eot?50433717');
+  src: url('../font/fontello.eot?50433717#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?50433717') format('woff2'),
+       url('../font/fontello.woff?50433717') format('woff'),
+       url('../font/fontello.ttf?50433717') format('truetype'),
+       url('../font/fontello.svg?50433717#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,14 +14,14 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'fa-thumbs-o-up';
-    src: url('../font/fa-thumbs-o-up.svg?84470300#fa-thumbs-o-up') format('svg');
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?50433717#fontello') format('svg');
   }
 }
 */
  
  [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "fa-thumbs-o-up";
+  font-family: "fontello";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -55,5 +55,11 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-thumbs-up:before { content: '\e800'; } 
-.icon-down-hand:before { content: '\e801'; } 
+.icon-mail:before { content: '\e800'; } /* '' */
+.icon-user:before { content: '\e801'; } /* '' */
+.icon-thumbs-up:before { content: '\e802'; } /* '' */
+.icon-location:before { content: '\e803'; } /* '' */
+.icon-down-hand:before { content: '\e804'; } /* '' */
+.icon-hourglass:before { content: '\e806'; } /* '' */
+.icon-github-circled:before { content: '\f09b'; } /* '' */
+.icon-qq:before { content: '\f1d6'; } /* '' */
