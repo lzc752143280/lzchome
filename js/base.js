@@ -34,12 +34,11 @@ function JqueryUnsupportedAnimation()
 JqueryUnsupportedAnimation.prototype = {
     //匀速旋转动画实现
     //(dom:JQuery dom对象, angle_start:起始角度, angle_end:结束角度, speed:动画持续的时间, fn:动画结束后执行的函数)
-   isAnimated:true,
     rotate:function (dom,angle_start,angle_end,speed,fn){
-        var that = this;
-        if(that.isAnimated)
+        var isAnimated = true;
+        if(isAnimated)
         {
-            that.isAnimated = false;
+            isAnimated = false;
             dom.length > 0 ? dom : console.log("参数(1)错误:获取dom对象失败");
             if(angle_end === angle_start)
                 console.log("参数(2,3)错误:起始值与结束值相同");
@@ -49,7 +48,7 @@ JqueryUnsupportedAnimation.prototype = {
             {
                 angle_start += step;
                 if(Math.abs(angle_end - angle_start) < 1){
-                    that.isAnimated = true;
+                    isAnimated = true;
                     angle_start = angle_end;
                     clearInterval(rotate_jsq);
                     if($.isFunction(fn))

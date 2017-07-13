@@ -5,7 +5,7 @@ Block.prototype = {
         var num = Math.random();
         if (num > 0.9)
             num = 4;
-        else num = 2;
+        else num = 2048;
 
         var row, col;
 
@@ -66,7 +66,15 @@ Block.prototype = {
         for (var row = 0; row < 4; row++) {
             for (var col = 0; col < 4; col++) {
                 var div = document.getElementById("block_" + row + "_" + col);
-                div.innerHTML = game.allBlock[row][col] == 0 ? "" : "<div class='block block_" + game.allBlock[row][col] + " block_p_" + row + "_" + col + "'><div>";
+                var new_num;
+                if(game.allBlock[row][col]>2048){
+                    new_num = "plus";
+                    div.innerHTML = game.allBlock[row][col] == 0 ? "" : "<div class='block block_" + new_num + " block_p_" + row + "_" + col + "'>"+ game.allBlock[row][col] +"<div>";
+                }
+                else {
+                new_num = game.allBlock[row][col];
+                div.innerHTML = game.allBlock[row][col] == 0 ? "" : "<div class='block block_" + new_num + " block_p_" + row + "_" + col + "'><div>";
+                }
             }
         }
         localStorage.score = game.score; //缓存当前分数

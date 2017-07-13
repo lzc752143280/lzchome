@@ -15,9 +15,9 @@ function openSidebar() {
     $nav.animate({
         width: "200px"
     }, 300);
-    $content.animate({
-        marginLeft: "200px"
-    }, 300);
+    // $content.animate({
+    //     marginLeft: "200px"
+    // }, 300);
     $mask.fadeIn(300);
     $navMenuBtn.animate({
         width: 30,
@@ -29,13 +29,14 @@ function openSidebar() {
 
 //收起侧边栏
 function closeSidebar(event) {
-    event.stopPropagation();
+    if(event)
+        event.stopPropagation();
     $nav.animate({
         width: "40px"
     }, 300);
-    $content.animate({
-        marginLeft: "40px"
-    }, 300);
+    // $content.animate({
+    //     marginLeft: "40px"
+    // }, 300);
     $mask.fadeOut(300);
     $navMenuBtn.animate({
         width: 22,
@@ -67,6 +68,14 @@ function changeNavMenu(navMenu) {
 //导航菜单点击事件
 $navMenu.on("click", function (event) {
     var $that = $(this);
+    //if($that.children().attr("id")==="home"){
+    $.fn.fullpage.destroy('all');//清除fullpage对象,重新初始化
+    $("script[src='./home/home.js']").remove();
+    $("script[src='./skill/skill.js']").remove();
+    $("script[src='./document/document.js']").remove();
+    $("script[src='./communion/communion.js']").remove();
+    $("script[src='./about/about.js']").remove();
+    //}
     changeNavMenu($that);
     //捕获点击事件
     // $navMenu.on('click',function(){
@@ -96,7 +105,7 @@ if (onhash) {
             $(window).trigger("popstate");
             var id = onhash.replace(/(\w)\/.*/,"$1");
             //$('<link rel="stylesheet" href="./'+id+'/'+ id +'.css">').appendTo($("head"));//动态添加CSS
-            $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("head"));//动态添加js
+            $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("body"));//动态添加js
         },
         error: function () {
             console.log("url链接错误");
@@ -119,7 +128,7 @@ $.pjax({
         switch (type) {
             case 'success':var id = $(this).attr("id");
                 //$('<link rel="stylesheet" href="./'+id+'/'+ id +'.css">').appendTo($("head"));//动态添加CSS
-                $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("head"));//动态添加js
+                $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("body"));//动态添加js
                 break; //正常
             case 'cache':
                 ;
@@ -139,7 +148,7 @@ $main.on('pjax.start', function () {
     $(".content_loading_animation").show();
 }).on('pjax.end', function () {
     $(".content_loading_animation").hide();
-    closeSidebar(event);
+    closeSidebar();
     ////解除捕获点击事件
     // $navMenu.off('click',function(){
     // });

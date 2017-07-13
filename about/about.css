@@ -9,7 +9,7 @@
     height: 480px;
     border: 2px solid #fff;
     border-radius: 25px;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -113,7 +113,7 @@
     font-family: fontello;
 }
 
-.item_icon a:hover {
+.item_icon>a:hover {
     animation: overthrow 0.5s forwards;
 }
 
