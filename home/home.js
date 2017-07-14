@@ -1,7 +1,7 @@
 (function () {
     $('#fullpage').fullpage({
         'css3': true,
-        'sectionsColor': ['#111', '#87b0a5', '#945c4c', '#a29971'],
+        // 'sectionsColor': ['#111', '#87b0a5', '#945c4c', '#a29971'],
         'navigation': true,
         'navigationPosition': 'right',
         'navigationColor': '#87b0a5',
