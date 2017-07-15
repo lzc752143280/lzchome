@@ -129,7 +129,6 @@
             padding: 95px 67px 67px 67px;
             font-size: 20px;
             font-weight: bold;
-            text-align: left;
         }
 
         #loadingtip .note1 {
@@ -137,15 +136,14 @@
             height: 294px;
             float: left;
             background: url("images/note.png") no-repeat 10px 0px;
+            text-align: left;
         }
 
         #loadingtip .note2 {
             width: 294px;
             height: 294px;
-            margin-right: 0px;
             float: left;
             background: url("images/note.png") no-repeat -311px 0px;
-            text-align: center;
         }
 
         #loadingtip .note3 {
@@ -153,6 +151,7 @@
             height: 294px;
             float: left;
             background: url("images/note.png") no-repeat -634px 0px;
+            text-align: left;
         }
 
         #browsererror {
@@ -380,13 +379,13 @@
                 </ul>
                 <div class="weather">
                     <div class="weather_top">
-                        <div class="tmp"><span>30</span>°</div>
-                        <div class="cond"><span>多云</span></div>
+                        <div class="tmp"><span></span>°</div>
+                        <div class="cond"><span></span></div>
                     </div>
                     <div class="weather_bottom">
-                        <div class="city"><span>武汉</span></div>
-                        <div class="wind"><span>微风</span></div>
-                        <div class="aqi"><span>良</span></div>
+                        <div class="city"><span></span></div>
+                        <div class="wind"><span></span></div>
+                        <div class="aqi"><span></span></div>
                     </div>
                 </div>
                 <div class="status"><span>Now：</span></div>
@@ -571,11 +570,11 @@
         {
             var loader = new resLoader({
                 resources: [ //资源列表
-                    'images/1.jpg',
-                    'images/2.jpg',
-                    'images/3.jpg',
-                    'images/4.jpg',
-                    'images/5.jpg',
+                    './images/ryze.jpg',
+                    './images/painting1.jpg',
+                    './images/painting2.jpg',
+                    './images/youneedhim.png',
+                    './media/work.mp4',
                 ],
                 onStart: function (total) { //加载开始功能
                     //console.log('start:'+total);

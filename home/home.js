@@ -37,7 +37,7 @@
                             });
                             if (pdom == $p1) {
                                 $p2.show();
-                                printf(p2, 506, $p2);
+                                printf(p2, 440, $p2);
                             }
                             if (pdom == $p2) {
                                 $p3.show();

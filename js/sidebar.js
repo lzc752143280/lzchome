@@ -126,7 +126,9 @@ $.pjax({
     callback: function (status) {
         var type = status.type;
         switch (type) {
-            case 'success':var id = $(this).attr("id");
+            case 'success':var onhash = window.location.hash.replace(/#\//, "");
+                var id = onhash.replace(/(\w)\/.*/,"$1");
+                //var id = $(this).attr("id");
                 //$('<link rel="stylesheet" href="./'+id+'/'+ id +'.css">').appendTo($("head"));//动态添加CSS
                 $('<script src="./'+id+'/'+ id +'.js"><script>').appendTo($("body"));//动态添加js
                 break; //正常
@@ -202,7 +204,8 @@ $main.on('pjax.start', function () {
 //天气数据加载
 (function () {
     $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js", function (_result) {
-            getWeather(remote_ip_info.city);
+            var city = encodeURI(remote_ip_info.city);
+            getWeather(city);
         });
         function getWeather(city) {
             $.ajax({
@@ -213,7 +216,9 @@ $main.on('pjax.start', function () {
                     $(".weather .tmp span").text(data.HeWeather5[0].now.tmp);//当前温度
                     $(".weather .cond span").text(data.HeWeather5[0].now.cond.txt);//当前天气
                     $(".weather .city span").text(data.HeWeather5[0].basic.city);//当前城市
-                    $(".weather .wind span").text(data.HeWeather5[0].now.wind.sc);//当前风速
+                    $(".weather .wind span").text(data.HeWeather5[0].now.wind.dir);//当前风向
+                    //$(".weather .wind span").text(data.HeWeather5[0].now.wind.sc);//当前风速
+                    //$(".weather .wind span").text(data.HeWeather5[0].daily_forecast[0].wind.sc);//今日风速
                     $(".weather .aqi span").text(data.HeWeather5[0].aqi.city.qlty);//空气质量
                 }
             });

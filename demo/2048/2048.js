@@ -5,7 +5,7 @@ Block.prototype = {
         var num = Math.random();
         if (num > 0.9)
             num = 4;
-        else num = 2048;
+        else num = 2;
 
         var row, col;
 

@@ -1,21 +1,22 @@
 <div class="document">
     <div class="document_container">
         <h1>建站记录</h1>
-        <p>这是一个完全凭个人喜好，没有设计图，没有规划，想到哪里做到哪里的个人站。废话很多，可以到“吐槽本站”去吐槽。下面记录一下本站建立过程中遇到的一些坑，以防后患。</p>
+        <p>本文废话很多，下面记录一下本站建立过程中遇到的一些坑，以防后患。</p>
         <p>要建站首先就得要服务器要域名。国内域名必须要备案，材料一大堆太麻烦，Pass！于是找到了
 Freenom这个神奇的网站，竟然可以免费申请一年的顶级域名。域名解决了下一步解析到我的阿里云服务器上，shit！服务器也要备案才能公开访问。于是想到用自己的电脑做服务器，结果我的联通大内网IP也没办法让公网用户直接访问，而且联通还拒不提供公网IP。不得已之下采用了ngrok内网转发。由于是免费的，一天中大部分时间的访问速度都巨慢。我把阿里云的临时访问密码公开总行了吧，这网络环境真是够了！</p>
 <p>我的免费Web搭建完成，把之前做好的loading界面扔上去试试效果。Chrome OK，Firefox OK，模拟IE8 OK。直到手贱弄了个IE8的虚拟机。。。</p>
 <img src="../images/ie.gif" width="296"/>
-<p>WTF！白色底部继承不到zoom缩放的效果？谜の部分继承zoom就算了，莫名的抖动让我苦笑不得。IE果然就只适合做古板的标准流排版网站，于是放弃了兼容，光一个loading界面就省了几百行形容性代码。</p>
-<p>下面是删掉的关键性代码，备份一下，丢了可惜了。</p>
-<p>高斯模糊效果的实现：ie9及以下的版本可以使用-ms-filter: blur(1px);filter: blur(1px);轻松实现。高级版本竟然给砍了？ie10和ie11只能用<a href="https://gist.github.com/lzc752143280/27e0a471fa7185cc9e4f39a11694aa0c" target="_blank">svg标签</a>的方式做出高斯模糊的效果。每一个需要模糊效果的地方我都去P张图？果然还是扁平化风格好。</p>
+<p>WTF！白色底部继承不到zoom缩放的效果？谜の部分继承zoom就算了，莫名的抖动让我哭笑不得。IE果然就只适合做古板的标准流排版网站，于是放弃了兼容，光一个loading界面就省了几百行形容性代码。</p>
+<p>下面是删掉的关键性代码(要翻墙)，备份一下，丢了可惜了。</p>
+<p>高斯模糊效果的实现：ie9及以下的版本可以使用-ms-filter: blur(1px);filter: blur(1px);轻松实现。高级版本竟然给砍了？ie10和ie11只能用<a href="https://gist.github.com/lzc752143280/27e0a471fa7185cc9e4f39a11694aa0c" target="_blank">svg标签</a>的方式做出高斯模糊的效果。</p>
 <p>让<a href="https://gist.github.com/lzc752143280/fab8d18cc08013b095a72ed9f729bfca" target="_blank">IE8兼容rotate</a>的方法。旋转体会出现锯齿，容器盒子需要加大，否则旋转体会被切边。</p>
 <p><a href="https://gist.github.com/lzc752143280/e3c238ebaadc9602983b3aa1e6992fe3" target="_blank">RGB线性渐变</a>：为IE9以下的版本多增添一点色彩。。。</p>
 <p>下面是几个本站用到的插件。</p>
 <p><a href="../lib/resLoader.js" target="_blank">resLoader.js</a>：前面提到了ngrok内网转发速度很慢，然后就发现了这个插件，可以预先加载图片，加载完成执行callback。</p>
 <p><a href="../lib/jquery.pjax.js" target="_blank">jquery.pjax.js</a>：原版来自<a href="https://github.com/welefen/pjax" target="_blank">welefen</a>。稍微改了改（不知道是我不会用还是大神的这个插件本来就不支持#的形式），实现了无刷新ajax跳转。可前进后退，可刷新，在阿里云服务器上体验非常好。</p>
+<p><a href="https://github.com/alvarotrigo/fullPage.js/" target="_blank">fullpage.js</a>：全屏滚动插件，PC移动端兼容性都很好，省的自己写了。</p>
 <p><a href="https://github.com/hustcc/canvas-nest.js">canvas-nest.js</a>：很有意思的小插件，仅1.7KB就实现了本站的背景动画。</p>
-<p>总之就是这里抄一点，那里抄一点，把看到的喜欢的东西加到自己的个人站上。不知道写什么好了，就到这里。欢迎吐槽！</p>
+<p>不知道写什么好了，就到这里。欢迎吐槽！</p>
 <div class="document_end">—— to be continued ——</div>
     </div>
 </div>
