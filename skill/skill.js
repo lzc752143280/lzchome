@@ -1,10 +1,11 @@
 (function () {
-    var percents = [95, 95, 70, 80, 60, 20, 20, 30, 50];
+    var percents = [95, 95, 70, 80, 60, 20, 90, 60, 80];//百分比参数
+    //遍历每一个圆环
     $('.circle').each(function (index, e) {
         var percent = percents[index];
         changePercent(percent, $(e));
     });
-
+    //圆环和百分比增长实现
     function changePercent(percent, dom) {
         var percent_begin = 0;
         var angle_begin = 0;
@@ -40,22 +41,40 @@
             } else clearInterval(jsq);
         }, 40);
     }
+    //圆环翻转实现
     if (document.body.offsetWidth >= 768) {
+        var enterTimeStamp, leaveTimeStamp;
+        var stayTime_jsq;
         $(".skill_info").on("mouseenter", function () {
             var $that = $(this);
-            $that.find(".mask").attr("class", "mask turn_over");
-            $that.find(".percent").fadeOut(500, function () {
-                $that.find(".detail").fadeIn(500);
-            });
+            enterTimeStamp = new Date().getTime();
+            $(".skill_info .detail").hide();
+            stayTime_jsq = setTimeout(function () {
+                var $skillMask = $that.find(".mask");
+                jua.rotateY($skillMask, 0, 90, 200, function () {
+                    jua.rotateY($skillMask, 90, 0, 200);
+                });
+                $that.find(".percent").fadeOut(200, function () {
+                    $that.find(".detail").fadeIn(200);
+                });
+            }, 200);
         });
         $(".skill_info").on("mouseleave", function () {
             var $that = $(this);
-            $that.find(".mask").attr("class", "mask turn_back");
-            setTimeout(function () {
-                $that.find(".detail").fadeOut(500, function () {
-                    $that.find(".percent").fadeIn(500);
-                });
-            }, 550);
+            leaveTimeStamp = new Date().getTime();
+            if ((leaveTimeStamp - enterTimeStamp) < 200)
+                clearTimeout(stayTime_jsq);
+            else {
+                var $skillMask = $that.find(".mask");
+                setTimeout(function() {
+                    jua.rotateY($skillMask, 0, 90, 200, function () {
+                        jua.rotateY($skillMask, 90, 0, 200);
+                    });
+                    $that.find(".detail").fadeOut(200, function () {
+                        $that.find(".percent").fadeIn(200);
+                    });
+                }, 200);
+            }
         });
     }
 })();

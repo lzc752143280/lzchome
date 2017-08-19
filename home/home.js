@@ -6,8 +6,7 @@
         'navigationPosition': 'right',
         'navigationColor': '#87b0a5',
         'afterLoad': function (anchorLink, index) {
-            //var loadedSection = $(this);
-            if (index == 2) {
+            if (index == 2) {//page2
                 $(".page2 .content_right").addClass("reduce_line_height");
                 $(".painting1").addClass("showPainting1");
                 $(".painting2").addClass("showPainting2");
@@ -15,7 +14,7 @@
                     $(".page2 .next_page").show();
                 }, 1500);
             }
-            if (index == 3) {
+            if (index == 3) {//page3
                 var $p1 = $(".page3 .content div:nth-child(1)");
                 var $p2 = $(".page3 .content div:nth-child(2)");
                 var $p3 = $(".page3 .content div:nth-child(3)");
@@ -37,11 +36,11 @@
                             });
                             if (pdom == $p1) {
                                 $p2.show();
-                                printf(p2, 440, $p2);
+                                printf(p2, 506, $p2);//第二行
                             }
                             if (pdom == $p2) {
                                 $p3.show();
-                                printf(p3, 484, $p3);
+                                printf(p3, 484, $p3);//第三行
                             }
                             if (pdom == $p3) {
                                 setTimeout(function () {
@@ -53,10 +52,10 @@
                 }
                 if ($p1.width() == 0 && document.body.offsetWidth > 768) {
                     $p1.show();
-                    printf(p1, 836, $p1);
+                    printf(p1, 836, $p1);//第一行
                 } else $(".page3 .next_page").show();
             }
-            if (index == 4) {
+            if (index == 4) {//page4
                 if (document.body.offsetWidth > 768) {
                     $(".page4 .content div:nth-child(1) span").addClass("showText");
                     setTimeout(function () {
@@ -77,7 +76,7 @@
     })
 })();
 
-// $(".page2 .content_right").addClass("reduce_line_height");
+// page1
 function clock() {
     var date;
     var ms = 0,
@@ -137,6 +136,8 @@ function clock() {
     }
 }
 clock();
+//移动端提示
 if (document.body.offsetWidth <= 768) {
     $("#myVideo").remove();
+    $(".next_page:last").text("« PC访问效果更佳");
 }

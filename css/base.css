@@ -95,76 +95,80 @@
     padding-left: 10px;
 }
 
-.weather{
-    max-width: 155px;
-    min-width: 120px;
+.weather {
+    /* max-width: 155px; */
+    /* min-width: 120px; */
+    width: 120px;
     height: 70px;
     position: absolute;
     bottom: 50px;
     right: 45px;
     color: #e6e6e6;
+    display: none;
 }
 
-.weather_top{
+.weather_top {
     height: 40px;
 }
 
-.weather .tmp{
+.weather .tmp {
     width: 50px;
     font-size: 35px;
     padding-left: 5px;
     float: left;
 }
 
-.weather .cond{
+.weather .cond {
     width: 45px;
     float: left;
 }
 
-.weather .cond span{
+.weather .cond span {
     display: block;
     padding-top: 14px;
     padding-left: 7px;
     font-size: 16px;
 }
 
-.weather_bottom{
+.weather_bottom {
     height: 30px;
     font-size: 16px;
-    margin-top: 3px;
     line-height: 30px;
+    display: inline-block;
+    white-space:nowrap;
 }
 
-.weather_bottom .city{
-    float: left;
+.weather_bottom .city {
     padding-left: 3px;
+    display: inline-block;
 }
 
-.weather_bottom .wind{
-float: left;
-padding: 0 5px;
+.weather_bottom .wind {
+    display: inline-block;
+    padding: 0 5px;
 }
 
-.weather_bottom .aqi{
-float: left;
+.weather_bottom .aqi {
+    display: inline-block;
 }
 
-.weather_bottom .aqi::before{
+.weather_bottom .aqi::before {
     content: "|";
 }
 
-.weather_bottom .aqi span{
+.weather_bottom .aqi span {
     padding-left: 5px;
 }
 
-.status{
+.status {
     width: 110px;
     color: #D6D6D6;
     position: absolute;
     bottom: 20px;
     right: 55px;
 }
-.status span{
+
+.status span {
     padding-left: 3px;
 }
 
@@ -172,7 +176,7 @@ float: left;
     margin-left: 40px;
 }
 
-#content > .mask {
+#content>.mask {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
@@ -194,6 +198,7 @@ float: left;
     border: 8px solid #e6e6e6;
     border-radius: 50%;
     box-shadow: 2px 2px 8px #555;
+    z-index: 1002;
 }
 
 .lattice_circle ul {
@@ -267,4 +272,3 @@ float: left;
     -moz-transform: rotate(-90deg);
     -o-transform: rotate(-90deg);
 }
-

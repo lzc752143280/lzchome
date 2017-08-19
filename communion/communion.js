@@ -1,19 +1,24 @@
-var headPicNum = 0;
-var nickName = "";
+var headPicNum = 0;//头像编号
+var nickName = "";//昵称
+//检测缓存并显示
 if (localStorage.nickName) {
     if (document.body.offsetWidth < 768)
         $(".user_id_mobile").html('<p>你好，' + localStorage.nickName + '</p>').hide().show("slow");
     else $(".user_id").html('<p>你好，' + localStorage.nickName + '</p>').hide().show("slow");
 }
+//显示设置
 $(".user_id button").on('click', function () {
     $(".communion_container .setting").show();
 });
+//关闭设置
 $(".setting_close").on('click', function () {
     $(".communion_container .setting").hide();
 });
+//更换头像
 $(".inner_pic").on('click', function () {
     $(".setting_option ul").show();
 });
+//选择头像
 $(".setting_option ul li").on('click', function () {
     $(".setting_option ul").hide();
     headPicNum = $(".setting_option ul li").index(this);
@@ -21,6 +26,7 @@ $(".setting_option ul li").on('click', function () {
         background: 'url("../images/headpic/headpic_' + headPicNum + '.png") no-repeat'
     });
 });
+//昵称和头像审核
 $(".setting_option button").on('click', function () {
     nickName = $("#nickName").val();
     $.trim(nickName);
@@ -36,7 +42,7 @@ $(".setting_option button").on('click', function () {
     }
 });
 
-
+//移动端昵称审核
 $(".user_id_mobile button").on('click', function () {
     nickName = $(".user_id_mobile input").val();
     $.trim(nickName);
@@ -49,7 +55,7 @@ $(".user_id_mobile button").on('click', function () {
     }
 });
 
-
+//发送信息功能
 $(".post_box button").on('click', function () {
     var message = $(".post_textarea").val();
     headPicNum = localStorage.headPicNum || 0;
@@ -84,7 +90,7 @@ $(".post_box button").on('click', function () {
         });
     };
 });
-
+//点赞功能
 function addAdmire(that) {
     var $that = $(that);
     var admire = parseInt($that.find("span").text());
@@ -102,7 +108,7 @@ function addAdmire(that) {
         success: function (data) {}
     });
 }
-
+//从服务器获取留言
 function getComment() {
     $.ajax({
         url: "./communion/getComment.php",
@@ -117,7 +123,7 @@ function getComment() {
     });
 }
 getComment();
-
+//从服务器获取Admin的赞
 function getAdminAdmire() {
     $.ajax({
         url: "./communion/getAdminAdmire.php",
@@ -128,7 +134,7 @@ function getAdminAdmire() {
     });
 }
 getAdminAdmire();
-
+//显示全部
 $(".load_more").on('click', function () {
     var id = $(".user_comment .comment").attr("id");
     id = id.replace(/[^0-9]/ig, "");
@@ -148,7 +154,7 @@ $(".load_more").on('click', function () {
         }
     });
 });
-
+//给Admin点赞
 $(".admin_comment .comment_fn i").on('click', function () {
     var admire = parseInt($(".admin_comment .comment_fn span").text());
     admire++;

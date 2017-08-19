@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=decive-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=380, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="edge">
     <title>loading</title>
     <link rel="shortcut icon" href="./favicon.ico">
@@ -158,10 +158,10 @@
             width: 350px;
             height: 350px;
             position: absolute;
-            top: 15%;
+            /* top: 15%; */
             left: 50%;
             margin-left: -173px;
-            margin-top: 0px;
+            /* margin-top: 0px; */
             display: none;
         }
 
@@ -184,17 +184,20 @@
         }
 
         #browsererror p {
-            height: 80px;
+            height: 68px;
             background-color: #000;
             color: #E4E4E4;
             font-size: 14px;
             font-weight: 600;
             padding: 6px;
             margin: 0;
-            margin-bottom: 15px;
             text-indent: 2em;
             text-align: left;
-            padding: 15px 20px 0 20px;
+            padding: 15px 20px;
+        }
+
+        #browsererror .browserdownload {
+            margin: 29px 0;
         }
 
         #browsererror ul li {
@@ -311,9 +314,6 @@
             border-bottom: 2px solid #1E1E1E;
             border-right: 2px solid #1E1E1E;
         }
-        .oldmask{
-            top: 15%;
-        }
     </style>
     <![endif]-->
 </head>
@@ -384,11 +384,15 @@
                     </div>
                     <div class="weather_bottom">
                         <div class="city"><span></span></div>
+                        <!--去除inline-block间隙
+                        -->
                         <div class="wind"><span></span></div>
+                        <!--
+                        -->
                         <div class="aqi"><span></span></div>
                     </div>
                 </div>
-                <div class="status"><span>Now：</span></div>
+                <div class="status"><span>Now：待就业</span></div>
             </div>
         </div>
         <div id="content">
@@ -486,10 +490,22 @@
         var gradient_jsq;
         var funny_jsq;
 
+        var res = [];
+        if (document.body.offsetWidth >= 768)
+            res = [ //资源列表
+                './images/ryze.jpg',
+                './images/painting1.jpg',
+                './images/painting2.jpg',
+                './images/youneedhim.png',
+                './media/work.mp4'
+            ];
+        else res = ['./images/ie.gif'];
+
         if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10)
             newbrowser.style.display = "none"; //IE 9-使用filter滤镜实现高斯模糊
         else oldbrowser.style.display = "none"; //IE 10+使用SVG实现高斯模糊
-        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10) //IE 10- 拒绝访问
+        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10 || browserVersion.appname ==
+            "edge") //IE 10- 拒绝访问
         {
             cirque.style.display = "none";
             loadingtip.style.display = "none";
@@ -521,7 +537,8 @@
         var magnet_head = document.getElementById("magnet_head");
         var vinyl_angle = 360;
         var vinyl_jsq;
-        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10) {
+        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10 || browserVersion.appname ==
+            "edge") {
 
         } else if (document.body.offsetWidth < 768) //如果bodyWidth < 768 不播放音乐
         {
@@ -565,17 +582,10 @@
             vinyl.style.msTransform = "rotate(" + vinyl_angle + "deg)";
         };
 
-
         function prestrain() // 预加载功能实现
         {
             var loader = new resLoader({
-                resources: [ //资源列表
-                    './images/ryze.jpg',
-                    './images/painting1.jpg',
-                    './images/painting2.jpg',
-                    './images/youneedhim.png',
-                    './media/work.mp4',
-                ],
+                resources: res,
                 onStart: function (total) { //加载开始功能
                     //console.log('start:'+total);
                 },
@@ -615,7 +625,7 @@
                             $("body").append($(
                                 '<script type="text/javascript" color="78,29,76" opacity="0.7" zIndex="1" src="./lib/canvas-nest.min.js"><\/script>'
                             ));
-                    }, 1000);
+                    }, 3000);
                 }
             })
             loader.start();
