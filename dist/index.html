@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/fontello.css">
-    <!-- <link rel="stylesheet" href="./lib/jquery.fullPage.css"> -->
     <link href="https://cdn.bootcss.com/fullPage.js/2.9.4/jquery.fullpage.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./home/home.css">
     <link rel="stylesheet" href="./skill/skill.css">
@@ -18,10 +17,8 @@
     <link rel="stylesheet" href="./communion/communion.css">
     <link rel="stylesheet" href="./about/about.css">
     <script src="lib/resLoader.js"></script>
-    <!-- <script src="lib/jquery.min-1.11.3.js"></script> -->
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="lib/jquery.pjax.js"></script>
-    <!-- <script src="lib/jquery.fullPage.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/Director/1.2.8/director.min.js"></script>
     <script src="https://cdn.bootcss.com/fullPage.js/2.9.4/jquery.fullpage.min.js"></script>
     <script src="js/base.js"></script>
     <style>
@@ -343,7 +340,7 @@
             <div id="loadingtip">
                 <div class="note1"><span>本站使用的免费服务器，经常抽风，请耐心等待</span></div>
                 <div class="note2"><span>正在预加载资源...</span></div>
-                <div class="note3"><span>请自觉抵制 IE 浏览器 <img src="images/fuckIE.png" alt="fuckIE"></span></div>
+                <div class="note3"><span>请自觉抵制 IE 浏览器 <img src="images/fuckie.png" alt=""></span></div>
             </div>
             <div id="browsererror">
                 <div><span>FBI WARNING</span></div>
@@ -374,11 +371,11 @@
                 </div>
                 <img src="images/logo.png" class="logo">
                 <ul>
-                    <li><a id="home" href="home/index.html" data-pjax="" class="active">首页</a></li>
-                    <li><a id="skill" href="skill/index.html" data-pjax="">雕虫小技</a></li>
-                    <li><a id="document" href="document/index.html" data-pjax="">建站记录</a></li>
-                    <li><a id="communion" href="communion/index.html" data-pjax="">吐槽本站</a></li>
-                    <li><a id="about" href="about/index.html" data-pjax="">个人资料</a></li>
+                    <li><a id="home" href="#/home" class="active">首页</a></li>
+                    <li><a id="skill" href="#/skill">雕虫小技</a></li>
+                    <li><a id="document" href="#/document">建站记录</a></li>
+                    <li><a id="communion" href="#/communion">吐槽本站</a></li>
+                    <li><a id="about" href="#/about">个人资料</a></li>
                 </ul>
                 <div class="weather">
                     <div class="weather_top">
@@ -507,8 +504,7 @@
         if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10)
             newbrowser.style.display = "none"; //IE 9-使用filter滤镜实现高斯模糊
         else oldbrowser.style.display = "none"; //IE 10+使用SVG实现高斯模糊
-        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10 || browserVersion.appname ==
-            "edge") //IE 10- 拒绝访问
+        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10 || browserVersion.appname == "safari" && parseInt(browserVersion.version) < 9) //IE 10- 拒绝访问
         {
             cirque.style.display = "none";
             loadingtip.style.display = "none";
@@ -529,7 +525,7 @@
             }
         }
 
-        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10) {
+        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10  || browserVersion.appname == "safari" && parseInt(browserVersion.version) < 9) {
 
         } else SelfAdaption(loadingCentent); //页面载入时缩放一次
 
@@ -540,8 +536,7 @@
         var magnet_head = document.getElementById("magnet_head");
         var vinyl_angle = 360;
         var vinyl_jsq;
-        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10 || browserVersion.appname ==
-            "edge") {
+        if (browserVersion.appname == "msie" && parseInt(browserVersion.version) < 10 || browserVersion.appname == "safari" && parseInt(browserVersion.version) < 9) {
 
         } else if (document.body.offsetWidth < 768) //如果bodyWidth < 768 不播放音乐
         {
@@ -599,14 +594,14 @@
                     var target = document.getElementById("loadingtip").childNodes[3].childNodes[0];
                     target.innerText = "Coming Soon !";
                     setTimeout(function () {
-                        clearInterval(gradient_jsq);
-                        clearInterval(funny_jsq);
+                        setTimeout(function() {
+                            clearInterval(gradient_jsq);
+                            clearInterval(funny_jsq);
+                        }, 3000);
                         var index = document.getElementById("index");
-                        var loading = document.getElementById("loading");
-                        var loading_centent = document.getElementById("loading_centent");
                         index.style.display = "block"; //显示主页
                         var h = loading.offsetHeight;
-                        loading.removeChild(loading_centent);
+                        loading.removeChild(loadingCentent);
 
                         function animate() {
                             var loadingH = loading.offsetHeight;
@@ -621,14 +616,16 @@
                             }
                             loading.style.height = h + "px";
                         }
-                        $("body").append($('<script src="./home/home.js"><\/script>'));
+                        var homejs = document.createElement('script');
+                        homejs.src = './home/home.js';
+                        document.body.appendChild(homejs);
                         var jsq_animate = setInterval(animate, 20);
                         document.title = 'iHome';
                         if (document.body.offsetWidth >= 768)
                             $("body").append($(
                                 '<script type="text/javascript" color="78,29,76" opacity="0.7" zIndex="1" src="./lib/canvas-nest.min.js"><\/script>'
                             ));
-                    }, 3000);
+                    }, 1000);
                 }
             })
             loader.start();
@@ -764,7 +761,7 @@
                 }
             }());
     </script>
-    <script src="js/sidebar.js"></script>
+    <script src="./js/sidebar.js"></script>
 </body>
 
 </html>

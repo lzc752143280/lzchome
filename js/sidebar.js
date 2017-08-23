@@ -23,7 +23,7 @@ function openSidebar() {
     if ($nav.width() < 200)
         jua.rotate($navMenuBtn, 0, -45, 300);
     $(".weather").fadeIn(200);
-}
+};
 
 //收起侧边栏
 function closeSidebar(event) {
@@ -40,7 +40,7 @@ function closeSidebar(event) {
     if ($nav.width() > 40)
         jua.rotate($navMenuBtn, -45, 0, 300);
     $(".weather").fadeOut(200);
-}
+};
 
 //侧边栏点击事件
 $sidebar.on("click", openSidebar);
@@ -59,86 +59,83 @@ function changeNavMenu(navMenu) {
         paddingLeft: 10
     }, 200);
     navMenu.children("a").addClass("active");
-}
+};
 
-//导航菜单点击事件
-$navMenu.on("click", function (event) {
-    var $that = $(this);
-    $.fn.fullpage.destroy('all'); //清除fullpage对象,重新初始化
-    $("script[src='./home/home.js']").remove();
-    $("script[src='./skill/skill.js']").remove();
-    $("script[src='./document/document.js']").remove();
-    $("script[src='./communion/communion.js']").remove();
-    $("script[src='./about/about.js']").remove();
-    changeNavMenu($that);
+$navMenu.on('click', function () {
+    console.log($(this).children().attr('id'));
+    var onhash = window.location.hash.slice(2);
+    console.log(onhash);
+    if (onhash === 'home' && $(this).children().attr('id') === 'home'){
+
+    }else $.fn.fullpage.destroy('all'); //清除fullpage对象,重新初始化
 });
 
-//导航菜单跟随前进后退事件变化
-window.onpopstate = function () {
-    var title = $main.children().attr("class");
-    for (var i in list) {
-        if (list[i] == title) {
-            setTimeout(changeNavMenu($navMenu.eq(i)), 100);
-        }
-    }
-}
-
-//首先加载一次首页
-var onhash = window.location.hash.replace(/#\//, "");
-if (onhash) {
+function getPage(url) {
     $.ajax({
-        type: "get",
-        url: onhash,
-        dateType: "html",
+        type: 'get',
+        url: url,
+        dataType: 'html',
         success: function (html) {
-            $main.html(html).hide().fadeIn(1000);
-            $(window).trigger("popstate");
-            var id = onhash.replace(/(\w)\/.*/, "$1");
-            $('<script src="./' + id + '/' + id + '.js"><script>').appendTo($("body")); //动态添加js
-        },
-        error: function () {
-            console.log("url链接错误");
+            $(".content_loading_animation").hide();
+            closeSidebar();
+            $('#content #main').fadeOut().html(html).fadeIn(500);
+            $("script[src='./home/home.js']").remove();
+            $("script[src='./skill/skill.js']").remove();
+            $("script[src='./document/document.js']").remove();
+            $("script[src='./communion/communion.js']").remove();
+            $("script[src='./about/about.js']").remove();
+            var hash = window.location.hash.slice(2);
+            $('<script src="./' + hash + '/' + hash + '.js"></script>').appendTo($("body")); //动态添加js
         }
     });
-}
+};
 
-//路由功能
-$.pjax({
-    selector: 'a[data-pjax]',//给a标签绑定pjax事件
-    container: '#main', //内容替换的容器
-    show: 'fade', //展现的动画，支持默认和fade, 可以自定义动画方式，这里为自定义的function即可。
-    cache: false, //是否使用缓存
-    storage: false, //是否使用本地存储
-    timeout: 100000,//超时
-    titleSuffix: "", //标题后缀
-    filter: function () {},//过滤元素
-    callback: function (status) {
-        var type = status.type;
-        switch (type) {
-            case 'success':
-                var onhash = window.location.hash.replace(/#\//, "");
-                var id = onhash.replace(/(\w)\/.*/, "$1");
-                $('<script src="./' + id + '/' + id + '.js"><script>').appendTo($("body")); //动态添加js
-                break; //正常
-            case 'cache':
-                ;
-                break; //读取缓存
-            case 'error':
-                ;
-                break; //发生异常
-            case 'hash':
-                ;
-                break; //只是hash变化
-        }
+$('document').ready(function () {
+    //创建一些在用户发出正确路由时执行的功能。
+    var showHome = function () {
+        var url = './home/index.html';
+        getPage(url);
+    };
+    var showSkill = function () {
+        var url = './skill/index.html';
+        getPage(url);
+    };
+    var showDocument = function () {
+        var url = './document/index.html';
+        getPage(url);
+    };
+    var showCommunion = function () {
+        var url = './communion/index.html';
+        getPage(url);
+    };
+    var showAbout = function () {
+        var url = './about/index.html';
+        getPage(url);
+    };
+
+    var onRoute = function () {};
+    var beforeRoute = function () {
+        var route = window.location.hash.slice(2);
+        changeNavMenu($("#" + route).parent());
+        $(".content_loading_animation").show();
     }
-});
+    //定义路由表。
+    var routes = {
+        '/home': showHome,
+        '/skill': showSkill,
+        '/document': showDocument,
+        '/communion': showCommunion,
+        '/about': showAbout
+    };
+    //实例化路由器。
+    var router = Router(routes);
+    //全局配置设置。
+    router.configure({
+        before: beforeRoute,
+        on: onRoute
+    });
 
-//loading动画
-$main.on('pjax.start', function () {
-    $(".content_loading_animation").show();
-}).on('pjax.end', function () {
-    $(".content_loading_animation").hide();
-    closeSidebar();
+    router.init();
 });
 
 (function () {
@@ -149,7 +146,7 @@ $main.on('pjax.start', function () {
         var b = $(".content_loading_animation").height() / 2;
         var r = a;
         var $dot = $(".content_loading_animation ul li");
-        var angle = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];//12个圆周上的点
+        var angle = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]; //12个圆周上的点
         for (var i = 0; i < angle.length; i++) {
             var radian = (2 * Math.PI / 360) * angle[i] //固定公式
             $dot[i].style.left = parseInt(a + Math.sin(radian) * r) - 9 + "px";

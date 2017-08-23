@@ -15,9 +15,10 @@ function AppInfo()// 浏览器类型版本判断
     } else if (/version\D+(\d[\d.]*).*safari/.test(userAgent))
     {
         browser.appname = 'safari';
-        browser.version = RegExp.$2;
+        browser.version = RegExp.$1;
     }
     console.log(browser.appname);
+    console.log(browser.version);
     return browser;//返回浏览器信息对象
 }
 
