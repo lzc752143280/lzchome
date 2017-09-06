@@ -433,7 +433,7 @@
                         </div>
                         <div class="section page3">
                             <div class="myVideo_wrapper">
-                                <video id="myVideo" src="../media/work.mp4" loop data-autoplay></video>
+                                <video id="myVideo" src="../media/work.mp4" loop preload="auto" data-autoplay></video>
                             </div>
                             <div class="content">
                                 <div><span>他有良好的自学能力，能够独立解决问题，遇到难题先独自思考后再与别人交流解决。</span></div>
@@ -493,11 +493,11 @@
         var res = [];
         if (document.body.offsetWidth >= 768)
             res = [ //资源列表
-                './images/ryze.jpg',
-                './images/painting1.jpg',
-                './images/painting2.jpg',
-                './images/youneedhim.png',
-                './media/work.mp4'
+                'images/ryze.jpg',
+                'images/painting1.jpg',
+                'images/painting2.jpg',
+                'images/youneedhim.png',
+                'media/work.mp4'
             ];
         else res = ['./images/ie.gif'];
 
@@ -625,7 +625,7 @@
                             $("body").append($(
                                 '<script type="text/javascript" color="78,29,76" opacity="0.7" zIndex="1" src="./lib/canvas-nest.min.js"><\/script>'
                             ));
-                    }, 1000);
+                    }, 3000);
                 }
             })
             loader.start();

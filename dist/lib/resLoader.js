@@ -50,11 +50,16 @@
             else{
                 url = baseUrl + r;
             }
-
-            var image = new Image();
-            image.onload = function(){_this.loaded();};
-            image.onerror = function(){_this.loaded();};
-            image.src = url;
+            if(url.indexOf("mp4") !== -1){
+                var mp4 = document.getElementById("myVideo");
+                mp4.load();
+                mp4.oncanplaythrough = function(){_this.loaded();};
+            }else{
+                var img = new Image();
+                img.onload = function(){_this.loaded();};
+                img.onerror = function(){_this.loaded();};
+                img.src = url;
+            }
         }
         if(isFunc(this.option.onStart)){
             this.option.onStart(this.total);
